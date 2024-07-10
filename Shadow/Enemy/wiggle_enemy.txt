@@ -1,0 +1,34 @@
+
+
+class Enemy {
+    constructor(){
+        this.image = new Image();
+        this.image.src = "enemy2.png";
+        this.spirtWidth = 266;
+        this.spirtHeight = 188;
+        this.width = this.spirtWidth / 2;
+        this.height = this.spirtHeight / 2;
+        this.x =  Math.random() * (canvas.width - this.width);
+        this.y =  Math.random() * (canvas.height - this.height);
+        this.frame = 0;
+        this.speed = Math.random() * 4 + 1;// create range of 4 and start with -2 
+        this.flapSpeed = Math.floor(Math.random() * 3 + 1);
+        this.angle = 0; 
+        this.angleSpeed = Math.random() * 0.2;
+        this.curve = Math.random() * 5;
+    }
+    update(){
+        this.x -= this.speed;
+        this.y += this.curve *  Math.sin(this.angle);
+        this.angle += this.angleSpeed;
+        if(this.x + this.width < 0) this.x = canvas.width;
+        // animate spirite
+        if(gameFrame % 2 === 0 ){
+            this.frame  > 4 ? this.frame = 0 : this.frame++;
+        } 
+    }
+    draw(){
+        ctx.drawImage(this.image, this.frame * this.spirtWidth, 0, this.spirtWidth, this.spirtHeight,
+            this.x , this.y, this.width ,this.height);
+    }
+}
